@@ -1,51 +1,201 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>For Someone Special 😉</title>
-    <style>
-        body { 
-            margin: 0; 
-            background: linear-gradient(45deg, pink, red, purple); 
-            font-family: 'Arial', sans-serif; 
-            text-align: center; 
-            color: white; 
-            overflow-x: hidden; 
-        }
-        h1 { font-size: 3em; animation: pulse 2s infinite; }
-        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
-        img { width: 300px; border-radius: 50%; margin: 20px; box-shadow: 0 0 20px rgba(255,255,255,0.5); animation: float 3s ease-in-out infinite; }
-        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
-        .message { font-size: 1.5em; margin: 30px; opacity: 0; animation: fadeIn 1s forwards; }
-        @keyframes fadeIn { to { opacity: 1; } }
-        .heart { font-size: 5em; color: red; animation: heartbeat 1.5s infinite; }
-        @keyframes heartbeat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.2); } }
-    </style>
-
+<meta charset="UTF-8" />
+<title>For Someone Special â ̃oï ̧</title>
+<style>
+body {
+margin: 0;
+background: linear-gradient(45deg, pink, red, purple);
+font-family: 'Arial', sans-serif;
+text-align: center;
+color: white;
+overflow: hidden;
+}
+  h1 {
+font-size: 2.3em;
+margin: 0 10px 20px;
+animation: pulse 2s infinite;
+}
+  @keyframes pulse {
+0% { transform: scale(1); }
+50% { transform: scale(1.05); }
+100% { transform: scale(1); }
+}
+  .slides-container {
+display: flex;
+overflow: hidden;
+width: 100vw;
+height: 100vh;
+position: relative;
+}
+  .slide {
+min-width: 100%;
+flex-shrink: 0;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+padding: 20px;
+transform: translateX(100%);       opacity: 0;
+transition: transform 0.6s ease, opacity 0.6s ease;
+}
+.slide.activetransform:opacity: 1;
+}
+{
+translateX(0);
+img {
+width: 260px;
+height: 260px;
+object-fit: cover;
+border-radius: 50%;
+margin: 20px 0;
+box-shadow: 0 0 25px rgba(255,255,255,0.6);
+animation: float 3s ease-in-out infinite;
+}
+@keyframes float {
+0%, 100% { transform: translateY(0); }
+50% { transform: translateY(-10px); }
+}
+.message {
+font-size: 1.2em;
+margin: 10px 15px;
+}
+.heart {
+font-size: 1.6em;
+margin: 0 20px;
+animation: heartbeat 1.5s infinite;
+}
+@keyframes heartbeat {
+0%, 100% { transform: scale(1); }
+50% { transform: scale(1.2); }
+}
+.nav-btn {
+position: fixed;
+top: 50%;
+transform: translateY(-50%);background: rgba(255,255,255,0.2);
+border: none;
+color: white;
+font-size: 2rem;
+padding: 8px 14px;
+border-radius: 999px;
+cursor: pointer;
+}
+  .nav-btn:hover {
+background: rgba(255,255,255,0.35);
+}
+  .prev { left: 10px; }
+.next { right: 10px; }
+  .dots {
+position: fixed;
+bottom: 15px;
+left: 50%;
+transform: translateX(-50%);
+}
+  .dot {
+display: inline-block;
+width: 10px;
+height: 10px;
+margin: 0 4px;
+border-radius: 50%;
+background: rgba(255,255,255,0.4);
+}
+  .active-dot {
+background: white;
+}
+</style>
 </head>
 <body>
-    <h1>Happy Birthday, Salonee! 🥳🎂</h1>
-    <img src="'Choti Salonee.jpg'" alt="Choti Salonee">
-
-    <div class="message">1. You make every day brighter ✨</div>
-    <img src="pose.jpg" alt=":-)">
-
-    <div class="message">2. You're smile is my favorite thing 😄</div>
-    <img src="smile.jpg" alt="Aapki Muskan">
-
-    <div class="message">3. Tujhi Golu Molu Pic 👻</div>
-    <img src="golu.jpg" alt="Hehehe"
-
-    <div class ="message">4. May You Have A Great Year Ahead, Stay Blessed And Enjoy Your Day 🕉</div>
-    <img src="together.jpg" alt=":-)"
-
-    <div class="heart">💕Thank You For Always Being There For  Me! 💕</div>
-
-    <script>
-        // Popup surprise
-        setTimeout(() => alert('Surprise! Click OK to see more magic ✨'), 5000);
-        // Confetti effect (simple JS)
-        function confetti() { /* Add canvas confetti code if desired */ }
-    </script>
-
+<div class="slides-container">
+<!-- Slide 1: Title + first photo -->
+<div class="slide active">
+<h1>Happy Birthday, Salonee! ðŸŽ‚ðŸ’–</h1>
+<img src="Chotti Salonee.jpg" alt="Chotti Salonee">
+<div class="message">You make my world extra special just by being in it âœ ̈<div>
+</div>
+  <!-- Slide 2 -->
+<div class="slide">
+<img src="pose.jpg" alt="Cute pose">
+<div class="message">1. You make every day brighter â ̃€ï ̧</div>
+</div>
+  <!-- Slide 3 -->
+<div class="slide">
+<img src="smile.jpg" alt="Aapki Muskan">
+<div class="message">2. Your smile is my favorite thing ðŸ ̃„ â€” Aapki Muskan<
+div>
+</div>
+  <!-- Slide 4 -->
+<div class="slide">
+<img src="golu.jpg" alt="Golu Molu">
+<div class="message">3. Tujhi Golu Molu Pic ðŸ ̃‡</div>
+</div>
+  <!-- Slide 5 -->
+<div class="slide">
+<img src="together.jpg" alt="Together">
+<div class="message">
+4. May you have a great year ahead, stay blessed and enjoy your day ðŸ•‰ï ̧
+</div>
+</div>
+  <!-- Slide 6: Final message -->
+<div class="slide">
+<div class="heart">
+Thank you for always being there for me! â¤ï ̧<br>
+Swipe or tap to look back at our favorite moments again.
+</div>
+</div>
+</div>
+  <!-- Navigation arrows -->
+<button class="nav-btn prev">âŸ ̈</button>
+<button class="nav-btn next">âŸ©</button>
+<!-- Dots -->
+<div class="dots"></div>
+  <script>
+const slides = document.querySelectorAll('.slide');
+const dotsContainer = document.querySelector('.dots');
+let current = 0;
+  // Create dots
+slides.forEach((_, i) => {
+const dot = document.createElement('span');
+dot.className = 'dot' + (i === 0 ? ' active-dot' : '');
+dot.dataset.index = i;
+dotsContainer.appendChild(dot);
+});
+  const dots = document.querySelectorAll('.dot');
+  function showSlide(index) {
+slides[current].classList.remove('active');
+dots[current].classList.remove('active-dot');
+  current = (index + slides.length) % slides.length;
+  slides[current].classList.add('active');
+dots[current].classList.add('active-dot');
+}
+  document.querySelector('.next').addEventListener('click', () => {
+showSlide(current + 1);
+});
+  document.querySelector('.prev').addEventListener('click', () => {
+showSlide(current - 1);
+});
+  dots.forEach(dot => {
+dot.addEventListener('click', () => {
+showSlide(parseInt(dot.dataset.index));
+});
+});
+  // Swipe support for phones
+let startX = 0;const container = document.querySelector('.slides-container');
+  container.addEventListener('touchstart', (e) => {
+startX = e.touches[0].clientX;
+});
+  container.addEventListener('touchend', (e) => {
+const endX = e.changedTouches[0].clientX;
+const diff = endX - startX;
+if (Math.abs(diff) > 50) {
+if (diff < 0) showSlide(current + 1);
+else showSlide(current - 1);
+}
+});
+  // Popup surprise
+setTimeout(() => {
+alert('Surprise! Swipe or tap the arrows to see your birthday story ðŸ’–');
+}, 2500);
+</script>
 </body>
-</html>
+</html
