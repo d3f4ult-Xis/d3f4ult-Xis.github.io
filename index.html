@@ -1,206 +1,581 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>For Someone Special ☺️</title>
-  <style>
-    body {
-      margin: 0;
-      background: linear-gradient(45deg, pink, red, purple);
-      font-family: Arial, sans-serif;
-      color: white;
-      text-align: center;
-      overflow-x: hidden;   /* allow normal vertical scroll if needed */
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Her Birthday Story</title>
+    <style>
+        :root {
+            --primary-color: #ff1493;
+            --secondary-color: #ff69b4;
+            --bg-dark: #1a1a2e;
+            --bg-light: #16213e;
+            --text-light: #eaeaea;
+            --accent: #ffd700;
+        }
 
-    h1 {
-      font-size: 2em;
-      margin: 15px 10px 5px;
-    }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    #slider {
-      position: relative;
-      width: 100vw;
-      min-height: calc(100vh - 90px);
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-light) 100%);
+            color: var(--text-light);
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
 
-    .slide {
-      position: absolute;
-      top: 50px;
-      left: 0;
-      width: 100%;
-      padding: 10px 20px 40px;
-      opacity: 0;
-      transform: translateX(100%);
-      transition: all 0.6s ease;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
+        /* Floating hearts animation */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+        }
 
-    .slide.active {
-      opacity: 1;
-      transform: translateX(0);
-    }
+        .heart-float {
+            position: fixed;
+            font-size: 2rem;
+            pointer-events: none;
+            animation: float 6s ease-in infinite;
+            z-index: 1;
+        }
 
-    img {
-      width: 70vw;          /* responsive width */
-      max-width: 260px;
-      height: auto;
-      aspect-ratio: 1 / 1;
-      object-fit: cover;
-      border-radius: 50%;
-      margin: 10px 0 15px;
-      box-shadow: 0 0 25px rgba(255,255,255,0.6);
-    }
+        /* Main carousel container */
+        .carousel-container {
+            width: 100%;
+            max-width: 500px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 20, 147, 0.2);
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
 
-    .message {
-      font-size: 1.05em;
-      margin: 0 10px;
-    }
+        /* Carousel slide */
+        .carousel-slide {
+            width: 100%;
+            padding: 60px 40px;
+            text-align: center;
+            min-height: 600px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transform: translateX(100px) rotateY(20deg);
+            transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            pointer-events: none;
+        }
 
-    .heart {
-      font-size: 1.3em;
-      margin: 0 20px;
-    }
+        .carousel-slide.active {
+            opacity: 1;
+            transform: translateX(0) rotateY(0deg);
+            pointer-events: auto;
+        }
 
-    .nav-btn {
-      position: fixed;
-      top: 50%;
-      transform: translateY(-50%);
-      background: rgba(255,255,255,0.25);
-      border: none;
-      color: white;
-      font-size: 1.8rem;
-      padding: 6px 12px;
-      border-radius: 999px;
-      cursor: pointer;
-      z-index: 10;
-    }
+        .carousel-slide.prev {
+            transform: translateX(-100px) rotateY(-20deg);
+        }
 
-    .nav-btn:active {
-      transform: translateY(-50%) scale(0.95);
-    }
+        /* Slide content */
+        .slide-number {
+            font-size: 0.9rem;
+            color: var(--accent);
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            opacity: 0.8;
+        }
 
-    .prev { left: 6px; }
-    .next { right: 6px; }
+        .slide-emoji {
+            font-size: 4rem;
+            margin: 20px 0;
+            animation: bounce 2s ease-in-out infinite;
+        }
 
-    .dots {
-      position: fixed;
-      bottom: 12px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 9;
-    }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
 
-    .dot {
-      display: inline-block;
-      width: 8px;
-      height: 8px;
-      margin: 0 3px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.4);
-    }
+        .slide-title {
+            font-size: 2rem;
+            color: var(--accent);
+            margin: 20px 0;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
 
-    .dot.active-dot {
-      background: white;
-    }
+        .slide-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-light);
+            margin: 20px 0;
+        }
 
-    @media (min-width: 768px) {
-      h1 { font-size: 2.4em; }
-      .message, .heart { font-size: 1.2em; }
-    }
-  </style>
+        .slide-date {
+            font-size: 0.95rem;
+            color: var(--secondary-color);
+            margin-top: 20px;
+            font-style: italic;
+        }
+
+        /* Photo slide */
+        .photo-gallery {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            width: 100%;
+            margin: 20px 0;
+        }
+
+        .photo-item {
+            aspect-ratio: 1;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            border: 2px solid rgba(255, 20, 147, 0.3);
+            transition: transform 0.3s ease;
+            overflow: hidden;
+        }
+
+        .photo-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .photo-item:hover {
+            transform: scale(1.05);
+        }
+
+        /* Navigation controls */
+        .carousel-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 30px 40px;
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .nav-button {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 5px 20px rgba(255, 20, 147, 0.4);
+        }
+
+        .nav-button:active {
+            transform: scale(0.95);
+        }
+
+        .nav-button:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        /* Progress bar */
+        .progress-dots {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .dot.active {
+            background: var(--accent);
+            width: 24px;
+            border-radius: 4px;
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+
+        /* Input section */
+        .input-section {
+            margin-top: 40px;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .input-section h3 {
+            color: var(--accent);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        input, textarea {
+            padding: 12px 15px;
+            border: 2px solid var(--secondary-color);
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-light);
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 0.95rem;
+        }
+
+        input::placeholder, textarea::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 15px rgba(255, 20, 147, 0.3);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .add-button {
+            padding: 12px 30px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .add-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255, 20, 147, 0.4);
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .carousel-slide {
+                padding: 40px 25px;
+                min-height: 500px;
+            }
+
+            .slide-title {
+                font-size: 1.5rem;
+            }
+
+            .slide-emoji {
+                font-size: 3rem;
+            }
+
+            .carousel-controls {
+                padding: 20px 25px;
+            }
+
+            .nav-button {
+                width: 45px;
+                height: 45px;
+                font-size: 1.2rem;
+            }
+
+            .photo-gallery {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 8px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+
+            .carousel-container {
+                max-width: 100%;
+                border-radius: 15px;
+            }
+
+            .carousel-slide {
+                padding: 30px 20px;
+                min-height: 450px;
+            }
+
+            .slide-title {
+                font-size: 1.3rem;
+            }
+
+            .slide-emoji {
+                font-size: 2.5rem;
+            }
+
+            .slide-text {
+                font-size: 1rem;
+            }
+
+            .carousel-controls {
+                padding: 15px 20px;
+            }
+
+            .nav-button {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+            }
+        }
+    </style>
 </head>
 <body>
-  <h1>Happy Birthday, Salonee! 🎂💖</h1>
+    <div style="width: 100%; display: flex; flex-direction: column; align-items: center;">
+        <!-- Carousel -->
+        <div class="carousel-container">
+            <!-- Slides -->
+            <div class="carousel-slide active">
+                <div class="slide-number">Story 1 / 6</div>
+                <div class="slide-emoji">🎂</div>
+                <h2 class="slide-title">Happy Birthday Salonee! 🎂🥳</h2>
+                <p class="slide-text">Cheers To 18 🥂</p>
+                <p class="slide-date">Swipe from Right To Left</p>
+            </div>
 
-  <div id="slider">
-    <div class="slide active">
-      <img src="'Chotti Salonee.jpg'" alt="Chotti Salonee">
-      <div class="message">You make my world extra special just by being in it ✨</div>
-    </div>
+            <div class="carousel-slide">
+                <div class="slide-number">Story 2 / 6</div>
+                <!-- ADD IMAGE HERE: Replace with <img src="1.jpg" alt="Our First Memory"> -->
+                <div class="slide-emoji">✨</div>
+                <h2 class="slide-title">Our First Memory</h2>
+                <p class="slide-text">Remember when we first met? That moment changed everything. You brought so much joy and peace.</p>
+                <p class="slide-date">Yaadein</p>
+            </div>
 
-    <div class="slide">
-      <img src="pose.jpg" alt="Cute pose">
-      <div class="message">1. You make every day brighter ☀️</div>
-    </div>
+            <div class="carousel-slide">
+                <div class="slide-number">Story 3 / 6</div>
+                <div class="slide-emoji">📸</div>
+                <h2 class="slide-title">Memories</h2>
+                <div class="photo-gallery">
+                    <!-- ADD IMAGE HERE: Replace with <img src="2.jpg" alt="Memory 1"> -->
+                    <div class="photo-item">🎉</div>
+                    <!-- ADD IMAGE HERE: Replace with <img src="3.jpg" alt="Memory 2"> -->
+                    <div class="photo-item">🎂</div>
+                    <!-- ADD IMAGE HERE: Replace with <img src="4.jpg" alt="Memory 3"> -->
+                    <div class="photo-item">💝</div>
+                    <!-- ADD IMAGE HERE: Replace with <img src="5.jpg" alt="Memory 4"> -->
+                    <div class="photo-item">🎈</div>
+                </div>
+                <p class="slide-text">Our Khi-Khi Moments</p>
+            </div>
 
-    <div class="slide">
-      <img src="smile.jpg" alt="Aapki Muskan">
-      <div class="message">2. Your smile is my favorite thing 😄 — Aapki Muskan</div>
-    </div>
+            <div class="carousel-slide">
+                <div class="slide-number">Story 4 / 6</div>
+                <!-- ADD IMAGE HERE: Replace with <img src="6.jpg" alt="Your Smile"> -->
+                <div class="slide-emoji">😊</div>
+                <h2 class="slide-title">Your Beautiful Smile</h2>
+                <p class="slide-text">One of my favorite things about you is your smile. It lights up every room and makes every day brighter.</p>
+                <p class="slide-date">You make me happy</p>
+            </div>
 
-    <div class="slide">
-      <img src="golu.jpg" alt="Golu Molu">
-      <div class="message">3. Tujhi Golu Molu Pic 😇</div>
-    </div>
+            <div class="carousel-slide">
+                <div class="slide-number">Story 5 / 6</div>
+                <!-- ADD IMAGE HERE: Replace with <img src="7.jpg" alt="Adventures Ahead"> -->
+                <div class="slide-emoji">🌈</div>
+                <h2 class="slide-title">Adventures Ahead</h2>
+                <p class="slide-text">For The Girl Who Made Me Laugh, Smile And Happy</p>
+                <p class="slide-date">Excited for what's next?</p>
+            </div>
 
-    <div class="slide">
-      <img src="together.jpg" alt="Together">
-      <div class="message">
-        4. May you have a great year ahead, stay blessed and enjoy your day 🕉️
-      </div>
-    </div>
+            <div class="carousel-slide">
+                <div class="slide-number">Story 6 / 6</div>
+                <!-- ADD IMAGE HERE: Replace with <img src="8.jpg" alt="Birthday Wish"> -->
+                <div class="slide-emoji">🎁</div>
+                <h2 class="slide-title">Happy Birthday to You!</h2>
+                <p class="slide-text">Wishing you a day filled with love, laughter, and joy. You deserve all the happiness. Happy Birthday! 🎉</p>
+                <p class="slide-date">With all my Bhonduness❤️</p>
+            </div>
 
-    <div class="slide">
-      <div class="heart">
-        Thank you for always being there for me! ❤️<br>
-        Swipe or tap the arrows to see our favorite moments again.
-      </div>
-    </div>
-  </div>
+            <!-- Navigation -->
+            <div class="carousel-controls">
+                <button class="nav-button" id="prevBtn" onclick="previousSlide()">❮</button>
+                <div class="progress-dots" id="dotsContainer"></div>
+                <button class="nav-button" id="nextBtn" onclick="nextSlide()">❯</button>
+            </div>
+        </div>
 
-  <button class="nav-btn prev">⟨</button>
-  <button class="nav-btn next">⟩</button>
-  <div class="dots"></div>
+       <script>
+        let currentSlide = 0;
+        let slides = document.querySelectorAll('.carousel-slide');
+        let totalSlides = slides.length;
 
-  <script>
-    const slides = document.querySelectorAll('.slide');
-    const prevBtn = document.querySelector('.prev');
-    const nextBtn = document.querySelector('.next');
-    const dotsWrap = document.querySelector('.dots');
-    let index = 0;
+        // Create navigation dots
+        function createDots() {
+            const dotsContainer = document.getElementById('dotsContainer');
+            for (let i = 0; i < totalSlides; i++) {
+                const dot = document.createElement('div');
+                dot.className = 'dot' + (i === 0 ? ' active' : '');
+                dot.onclick = () => goToSlide(i);
+                dotsContainer.appendChild(dot);
+            }
+        }
 
-    // dots
-    slides.forEach((_, i) => {
-      const d = document.createElement('span');
-      d.className = 'dot' + (i === 0 ? ' active-dot' : '');
-      d.dataset.i = i;
-      dotsWrap.appendChild(d);
-    });
-    const dots = document.querySelectorAll('.dot');
+        // Show slide
+        function showSlide(n) {
+            slides.forEach((slide, index) => {
+                slide.classList.remove('active', 'prev');
+                if (index === n) {
+                    slide.classList.add('active');
+                } else if (index < n) {
+                    slide.classList.add('prev');
+                }
+            });
 
-    function show(i) {
-      slides[index].classList.remove('active');
-      dots[index].classList.remove('active-dot');
-      index = (i + slides.length) % slides.length;
-      slides[index].classList.add('active');
-      dots[index].classList.add('active-dot');
-    }
+            // Update dots
+            document.querySelectorAll('.dot').forEach((dot, index) => {
+                dot.classList.toggle('active', index === n);
+            });
 
-    nextBtn.onclick = () => show(index + 1);
-    prevBtn.onclick = () => show(index - 1);
-    dots.forEach(d => d.onclick = () => show(parseInt(d.dataset.i)));
+            // Update button states
+            document.getElementById('prevBtn').disabled = n === 0;
+            document.getElementById('nextBtn').disabled = n === totalSlides - 1;
+        }
 
-    // swipe for phones
-    let startX = 0;
-    const slider = document.getElementById('slider');
-    slider.addEventListener('touchstart', e => startX = e.touches[0].clientX);
-    slider.addEventListener('touchend', e => {
-      const diff = e.changedTouches[0].clientX - startX;
-      if (Math.abs(diff) > 50) diff < 0 ? show(index + 1) : show(index - 1);
-    });
+        // Next slide
+        function nextSlide() {
+            if (currentSlide < totalSlides - 1) {
+                currentSlide++;
+                showSlide(currentSlide);
+            }
+        }
 
-    setTimeout(() => {
-      alert('Surprise! Swipe or tap the arrows to see your birthday story 💖');
-    }, 2000);
-  </script>
+        // Previous slide
+        function previousSlide() {
+            if (currentSlide > 0) {
+                currentSlide--;
+                showSlide(currentSlide);
+            }
+        }
+
+        // Go to specific slide
+        function goToSlide(n) {
+            currentSlide = n;
+            showSlide(currentSlide);
+        }
+
+        // Add custom memory slide
+        function addCustomSlide() {
+            const title = document.getElementById('memoryTitle').value;
+            const text = document.getElementById('memoryText').value;
+
+            if (!title || !text) {
+                alert('Please fill in both fields!');
+                return;
+            }
+
+            // Create new slide
+            const newSlide = document.createElement('div');
+            newSlide.className = 'carousel-slide';
+            newSlide.innerHTML = `
+                <div class="slide-number">Custom / Memory</div>
+                <div class="slide-emoji">💝</div>
+                <h2 class="slide-title">${title}</h2>
+                <p class="slide-text">${text}</p>
+                <p class="slide-date">✨ Added with Love</p>
+            `;
+
+            // Insert before carousel controls
+            document.querySelector('.carousel-container').insertBefore(
+                newSlide,
+                document.querySelector('.carousel-controls')
+            );
+
+            // Update slides NodeList
+            const slidesNodeList = document.querySelectorAll('.carousel-slide');
+            const newTotalSlides = slidesNodeList.length;
+
+            // Add new dot
+            const newDot = document.createElement('div');
+            newDot.className = 'dot';
+            newDot.onclick = () => goToSlide(newTotalSlides - 1);
+            document.getElementById('dotsContainer').appendChild(newDot);
+
+            // Clear inputs
+            document.getElementById('memoryTitle').value = '';
+            document.getElementById('memoryText').value = '';
+
+            // Navigate to new slide
+            currentSlide = newTotalSlides - 1;
+            showSlide(currentSlide);
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') previousSlide();
+            if (e.key === 'ArrowRight') nextSlide();
+        });
+
+        // Touch/swipe support
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        document.querySelector('.carousel-container').addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+
+        document.querySelector('.carousel-container').addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+
+        function handleSwipe() {
+            if (touchStartX - touchEndX > 50) nextSlide();
+            if (touchEndX - touchStartX > 50) previousSlide();
+        }
+
+        // Generate floating hearts
+        function createFloatingHeart() {
+            const heart = document.createElement('div');
+            heart.textContent = '❤️';
+            heart.className = 'heart-float';
+            heart.style.left = Math.random() * 100 + '%';
+            heart.style.animationDuration = (Math.random() * 3 + 4) + 's';
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 7000);
+        }
+
+        setInterval(createFloatingHeart, 2000);
+
+        // Initialize
+        createDots();
+        showSlide(0);
+    </script>
 </body>
 </html>
-
