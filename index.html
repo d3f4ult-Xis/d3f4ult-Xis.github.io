@@ -367,12 +367,12 @@
                 <div class="slide-emoji">🎂</div>
                 <h2 class="slide-title">Happy Birthday Salonee! 🎂🥳</h2>
                 <p class="slide-text">Cheers To 18 🥂</p>
-                <p class="slide-date">Swipe from Right To Left</p>
+                <p class="slide-date">Swipe From Right To Left →</p>
             </div>
 
             <div class="carousel-slide">
                 <div class="slide-number">Story 2 / 6</div>
-                <!-- ADD IMAGE HERE: Replace with <img src="1.jpg" alt="Our First Memory"> -->
+                <img src="1.jpg" alt="Our First Memory" style="width: 200px; height: 200px; border-radius: 10px; margin-bottom: 20px;">
                 <div class="slide-emoji">✨</div>
                 <h2 class="slide-title">Our First Memory</h2>
                 <p class="slide-text">Remember when we first met? That moment changed everything. You brought so much joy and peace.</p>
@@ -384,30 +384,26 @@
                 <div class="slide-emoji">📸</div>
                 <h2 class="slide-title">Memories</h2>
                 <div class="photo-gallery">
-                    <!-- ADD IMAGE HERE: Replace with <img src="2.jpg" alt="Memory 1"> -->
-                    <div class="photo-item">🎉</div>
-                    <!-- ADD IMAGE HERE: Replace with <img src="3.jpg" alt="Memory 2"> -->
-                    <div class="photo-item">🎂</div>
-                    <!-- ADD IMAGE HERE: Replace with <img src="4.jpg" alt="Memory 3"> -->
-                    <div class="photo-item">💝</div>
-                    <!-- ADD IMAGE HERE: Replace with <img src="5.jpg" alt="Memory 4"> -->
-                    <div class="photo-item">🎈</div>
+                    <div class="photo-item"><img src="2.jpg" alt="Memory 1"></div>
+                    <div class="photo-item"><img src="3.jpg" alt="Memory 2"></div>
+                    <div class="photo-item"><img src="4.jpg" alt="Memory 3"></div>
+                    <div class="photo-item"><img src="5.jpg" alt="Memory 4"></div>
                 </div>
-                <p class="slide-text">Our Khi-Khi Moments</p>
+                <p class="slide-text">Your favorite moments & celebrations</p>
             </div>
 
             <div class="carousel-slide">
                 <div class="slide-number">Story 4 / 6</div>
-                <!-- ADD IMAGE HERE: Replace with <img src="6.jpg" alt="Your Smile"> -->
+                <img src="6.jpg" alt="Your Smile" style="width: 200px; height: 200px; border-radius: 10px; margin-bottom: 20px;">
                 <div class="slide-emoji">😊</div>
                 <h2 class="slide-title">Your Beautiful Smile</h2>
-                <p class="slide-text">One of my favorite things about you is your smile. It lights up every room and makes every day brighter.</p>
+                <p class="slide-text">One of my favorite things about you is your smile. It lights up my sad moments and makes my each day brighter.</p>
                 <p class="slide-date">You make me happy</p>
             </div>
 
             <div class="carousel-slide">
                 <div class="slide-number">Story 5 / 6</div>
-                <!-- ADD IMAGE HERE: Replace with <img src="7.jpg" alt="Adventures Ahead"> -->
+                <img src="7.jpg" alt="Adventures Ahead" style="width: 200px; height: 200px; border-radius: 10px; margin-bottom: 20px;">
                 <div class="slide-emoji">🌈</div>
                 <h2 class="slide-title">Adventures Ahead</h2>
                 <p class="slide-text">For The Girl Who Made Me Laugh, Smile And Happy</p>
@@ -416,11 +412,11 @@
 
             <div class="carousel-slide">
                 <div class="slide-number">Story 6 / 6</div>
-                <!-- ADD IMAGE HERE: Replace with <img src="8.jpg" alt="Birthday Wish"> -->
+                <img src="8.jpg" alt="Birthday Wish" style="width: 200px; height: 200px; border-radius: 10px; margin-bottom: 20px;">
                 <div class="slide-emoji">🎁</div>
                 <h2 class="slide-title">Happy Birthday to You!</h2>
                 <p class="slide-text">Wishing you a day filled with love, laughter, and joy. You deserve all the happiness. Happy Birthday! 🎉</p>
-                <p class="slide-date">With all my Bhonduness❤️</p>
+                <p class="slide-date">With all my Bhonduness ❤️</p>
             </div>
 
             <!-- Navigation -->
@@ -431,7 +427,18 @@
             </div>
         </div>
 
-       <script>
+        <!-- Add Memory Section -->
+        <div class="input-section">
+            <h3>💌 Add Your Memory</h3>
+            <div class="input-group">
+                <input type="text" id="memoryTitle" placeholder="Memory Title (e.g., Our First Date)" maxlength="50">
+                <textarea id="memoryText" placeholder="Write your special memory here..."></textarea>
+                <button class="add-button" onclick="addCustomSlide()">Add Memory to Story</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
         let currentSlide = 0;
         let slides = document.querySelectorAll('.carousel-slide');
         let totalSlides = slides.length;
