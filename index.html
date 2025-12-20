@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Her Birthday 🎂</title>
+    <title>Her Magical Birthday 🎂</title>
     <style>
         * {
             margin: 0;
@@ -27,7 +27,7 @@
             width: 100%;
             height: 100%;
             background: rgba(0,0,0,0.8);
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(15px);
             z-index: 1000;
             display: flex;
             flex-direction: column;
@@ -38,33 +38,34 @@
         }
 
         .welcome-text {
-            font-size: 1.8rem;
+            font-size: clamp(1.4rem, 5vw, 2rem);
             margin-bottom: 30px;
             animation: glow 2s ease-in-out infinite alternate;
             max-width: 90%;
+            line-height: 1.4;
         }
 
         @keyframes glow {
             from { text-shadow: 0 0 20px #ff1493; }
-            to { text-shadow: 0 0 30px #ffd700; }
+            to { text-shadow: 0 0 40px #ffd700; }
         }
 
         .start-btn {
-            padding: 15px 40px;
-            font-size: 1.2rem;
+            padding: 18px 50px;
+            font-size: clamp(1rem, 4vw, 1.3rem);
             background: linear-gradient(45deg, #ff1493, #ffd700);
             border: none;
             border-radius: 50px;
             color: white;
             cursor: pointer;
             font-weight: bold;
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 30px rgba(255,20,147,0.4);
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            box-shadow: 0 15px 35px rgba(255,20,147,0.4);
         }
 
         .start-btn:hover {
-            transform: scale(1.1);
-            box-shadow: 0 15px 40px rgba(255,20,147,0.6);
+            transform: scale(1.1) translateY(-5px);
+            box-shadow: 0 25px 50px rgba(255,20,147,0.6);
         }
 
         /* Scene Container */
@@ -76,8 +77,8 @@
             align-items: center;
             position: relative;
             opacity: 0;
-            transform: translateY(50px);
-            transition: all 1s ease;
+            transform: translateY(100px);
+            transition: all 1.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
         }
 
         .scene.active {
@@ -87,303 +88,347 @@
 
         .instruction {
             position: absolute;
-            top: 20px;
-            background: rgba(255,255,255,0.9);
-            padding: 15px 25px;
-            border-radius: 25px;
+            top: 30px;
+            background: rgba(255,255,255,0.95);
+            padding: 20px 30px;
+            border-radius: 30px;
             font-weight: bold;
             color: #333;
-            font-size: 1rem;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
-            animation: bounceIn 0.5s ease;
+            font-size: clamp(1rem, 3vw, 1.2rem);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            animation: bounceIn 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            backdrop-filter: blur(10px);
         }
 
         @keyframes bounceIn {
-            0% { transform: scale(0.3); opacity: 0; }
-            50% { transform: scale(1.05); }
-            70% { transform: scale(0.9); }
-            100% { transform: scale(1); opacity: 1; }
+            0% { transform: scale(0.3) translateY(-50px); opacity: 0; }
+            50% { transform: scale(1.1); }
+            70% { transform: scale(0.95); }
+            100% { transform: scale(1) translateY(0); opacity: 1; }
         }
 
-        /* Bloom Tree */
+        /* Bloom Tree Scene */
         .tree-scene {
-            background: linear-gradient(to bottom, #87CEEB 0%, #98FB98 70%, #228B22 100%);
+            background: linear-gradient(135deg, #87CEEB 0%, #98FB98 60%, #228B22 100%);
+        }
+
+        .tree-container {
+            position: relative;
+            cursor: pointer;
+            transition: all 0.5s ease;
         }
 
         .tree {
-            font-size: 8rem;
-            cursor: pointer;
-            transition: all 0.5s ease;
-            animation: sway 3s ease-in-out infinite;
+            font-size: clamp(6rem, 25vw, 12rem);
+            animation: sway 4s ease-in-out infinite;
+            filter: drop-shadow(0 20px 40px rgba(0,0,0,0.3));
         }
 
         @keyframes sway {
-            0%, 100% { transform: rotate(-2deg); }
-            50% { transform: rotate(2deg); }
-        }
-🎂
-        .tree.blooming {
-            animation: bloom 2s ease-out forwards;
+            0%, 100% { transform: rotate(-3deg); }
+            50% { transform: rotate(3deg); }
         }
 
-        @keyframes bloom {
-            0% { transform: scale(1) rotate(-2deg); }
-            50% { transform: scale(1.3) rotate(0deg); }
-            100% { transform: scale(1.1) rotate(0deg); }
+        .tree.blooming {
+            animation: bloomTree 2.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+        }
+
+        @keyframes bloomTree {
+            0% { transform: scale(1) rotate(-3deg); filter: hue-rotate(0deg) brightness(1); }
+            30% { transform: scale(1.4) rotate(0deg); filter: hue-rotate(90deg) brightness(1.3); }
+            70% { transform: scale(1.2) rotate(2deg); filter: hue-rotate(120deg) brightness(1.1); }
+            100% { transform: scale(1.1) rotate(0deg); filter: hue-rotate(0deg) brightness(1); }
         }
 
         .hanging-photos {
             position: absolute;
+            top: -20%;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
             opacity: 0;
-            transform: translateY(-50px);
-            transition: all 1s ease 1s;
+            transition: all 1s ease 1.2s;
         }
 
         .hanging-photos.show {
             opacity: 1;
-            transform: translateY(0);
+            transform: translateX(-50%) translateY(-10px);
         }
 
-        .photo-ornament {
-            width: 120px;
-            height: 120px;
-            border-radius: 20px;
+        .photo-mango {
+            width: clamp(80px, 12vw, 120px);
+            height: clamp(80px, 12vw, 120px);
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
             object-fit: cover;
-            border: 4px solid #ffd700;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            margin: 10px;
+            border: 5px solid #ffd700;
+            box-shadow: 
+                0 10px 30px rgba(255,215,0,0.6),
+                inset 0 2px 10px rgba(255,255,255,0.8);
+            animation: swing 2s ease-in-out infinite 2s;
+            transform-origin: top center;
+        }
+
+        @keyframes swing {
+            0%, 100% { transform: rotate(-8deg); }
+            50% { transform: rotate(8deg); }
         }
 
         /* Bus Scene */
         .bus-scene {
-            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fad0c4 100%);
         }
 
         .bus {
-            font-size: 6rem;
-            animation: drive 4s ease-out forwards;
+            font-size: clamp(5rem, 20vw, 8rem);
+            animation: driveBus 5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+            filter: drop-shadow(0 20px 40px rgba(0,0,0,0.3));
         }
 
-        @keyframes drive {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100vw); }
+        @keyframes driveBus {
+            0% { transform: translateX(-150%) rotate(-5deg); }
+            50% { transform: translateX(20%) rotate(2deg); }
+            100% { transform: translateX(120%) rotate(5deg); }
         }
 
-        /* Photo Slides */
-        .photo-slide {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        /* Photo + Text Scenes */
+        .photo-text-scene {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 50%, #a1c4fd 100%);
             text-align: center;
+            padding: 20px;
         }
 
-        .photo-frame {
-            width: 250px;
-            height: 250px;
-            border-radius: 20px;
+        .side-photo {
+            position: absolute;
+            width: clamp(150px, 25vw, 220px);
+            height: clamp(150px, 25vw, 220px);
+            border-radius: 25px;
             object-fit: cover;
-            border: 8px solid #ffd700;
-            box-shadow: 0 20px 40px rgba(255,215,0,0.4);
-            margin: 20px 0;
-            animation: floatUp 2s ease-out;
+            border: 6px solid #ffd700;
+            box-shadow: 0 20px 50px rgba(255,215,0,0.5);
+            top: 50%;
+            transform: translateY(-50%);
         }
 
-        @keyframes floatUp {
-            0% { transform: translateY(50px); opacity: 0; }
-            100% { transform: translateY(0); opacity: 1; }
+        .left-photo { left: 10%; animation: slideInLeft 1s ease-out; }
+        .right-photo { right: 10%; animation: slideInRight 1s ease-out; }
+
+        @keyframes slideInLeft {
+            from { transform: translateY(-50%) translateX(-100px); opacity: 0; }
+            to { transform: translateY(-50%) translateX(0); opacity: 1; }
         }
 
-        /* Message Slides */
-        .message {
-            font-size: 1.5rem;
-            background: rgba(255,255,255,0.1);
-            padding: 30px;
-            border-radius: 20px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.2);
-            max-width: 400px;
-            animation: fadeInUp 1s ease-out;
+        @keyframes slideInRight {
+            from { transform: translateY(-50%) translateX(100px); opacity: 0; }
+            to { transform: translateY(-50%) translateX(0); opacity: 1; }
         }
 
-        @keyframes fadeInUp {
-            0% { opacity: 0; transform: translateY(30px); }
-            100% { opacity: 1; transform: translateY(0); }
+        .message-content {
+            max-width: 60%;
+            z-index: 2;
+            background: rgba(255,255,255,0.95);
+            padding: 40px;
+            border-radius: 30px;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 30px 80px rgba(0,0,0,0.4);
+        }
+
+        .message-title {
+            font-size: clamp(1.8rem, 6vw, 2.8rem);
+            background: linear-gradient(45deg, #ff1493, #ffd700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+            animation: titleGlow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes titleGlow {
+            from { filter: drop-shadow(0 0 10px rgba(255,20,147,0.5)); }
+            to { filter: drop-shadow(0 0 20px rgba(255,215,0,0.7)); }
+        }
+
+        .message-text {
+            font-size: clamp(1.1rem, 4vw, 1.4rem);
+            line-height: 1.6;
+            color: #333;
+            margin-bottom: 20px;
+            font-weight: 500;
         }
 
         /* House Scene */
         .house-scene {
-            background: linear-gradient(to bottom, #87CEEB 0%, #98FB98 60%, #DEB887 100%);
+            background: linear-gradient(145deg, #87CEEB 0%, #98FB98 50%, #DEB887 100%);
         }
 
         .house {
-            font-size: 10rem;
-            animation: glowHouse 2s ease-in-out infinite alternate;
+            font-size: clamp(8rem, 30vw, 15rem);
+            animation: houseGlow 3s ease-in-out infinite alternate;
+            filter: drop-shadow(0 30px 60px rgba(0,0,0,0.4));
         }
 
-        @keyframes glowHouse {
-            from { filter: drop-shadow(0 0 20px #ffd700); }
-            to { filter: drop-shadow(0 0 40px #ffd700); }
+        @keyframes houseGlow {
+            from { filter: drop-shadow(0 30px 60px rgba(255,215,0,0.6)); }
+            to { filter: drop-shadow(0 30px 80px rgba(255,20,147,0.8)); }
         }
 
-        /* Countdown */
-        .countdown {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 8rem;
-            font-weight: bold;
-            color: #ffd700;
-            text-shadow: 0 0 30px #ff1493;
-            z-index: 100;
-            pointer-events: none;
-            opacity: 0;
+        /* Music & Confetti */
+        #bgMusic {
+            display: none;
         }
 
-        .countdown.show {
-            opacity: 1;
-            animation: countdownPulse 1s ease-in-out infinite;
-        }
-
-        @keyframes countdownPulse {
-            0%, 100% { transform: translate(-50%, -50%) scale(1); }
-            50% { transform: translate(-50%, -50%) scale(1.2); }
-        }
-
-        /* Confetti */
         .confetti {
             position: fixed;
-            width: 10px;
-            height: 10px;
-            background: #ffd700;
+            width: 12px;
+            height: 12px;
+            background: linear-gradient(45deg, #ffd700, #ff1493);
             pointer-events: none;
-            z-index: 50;
-            animation: confetti-fall 3s linear infinite;
+            z-index: 200;
+            border-radius: 50%;
+            animation: confettiFall 4s linear infinite;
         }
 
-        @keyframes confetti-fall {
-            0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+        @keyframes confettiFall {
+            0% { 
+                transform: translateY(-100vh) rotate(0deg) scale(0); 
+                opacity: 1; 
+            }
+            50% { 
+                opacity: 1; 
+                transform: rotate(180deg) scale(1); 
+            }
+            100% { 
+                transform: translateY(100vh) rotate(720deg) scale(0); 
+                opacity: 0; 
+            }
         }
 
         /* Responsive */
         @media (max-width: 768px) {
-            .welcome-text { font-size: 1.4rem; }
-            .tree { font-size: 6rem; }
-            .photo-ornament { width: 100px; height: 100px; }
-            .photo-frame { width: 200px; height: 200px; }
-            .message { font-size: 1.2rem; padding: 20px; }
-            .house { font-size: 8rem; }
+            .side-photo {
+                width: clamp(120px, 22vw, 180px);
+                height: clamp(120px, 22vw, 180px);
+            }
+            .message-content {
+                max-width: 85%;
+                padding: 25px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .instruction {
+                padding: 15px 20px;
+                font-size: 0.9rem;
+            }
+            .hanging-photos {
+                gap: 10px;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Music -->
-    <audio id="bgMusic" loop>
-        <source src="Music.mp3" type="audio/mpeg">
+    <!-- Background Music -->
+    <audio id="bgMusic" loop preload="auto">
+        <source src="music.mp3" type="audio/mpeg">
     </audio>
 
     <!-- Welcome Modal -->
     <div class="welcome-modal" id="welcomeModal">
         <div class="welcome-text">
-           Happy Birthday Salonee! 🪐 A magical journey awaits you... <br>
-            <span style="font-size: 2rem; color: #ffd700;">Click to begin the birthday adventure! 🍃</span>
+            🌟 <strong>A MAGICAL BIRTHDAY ADVENTURE</strong> awaits you... <br><br>
+            <span style="font-size: 1.4em; color: #ffd700;">Click to start your special journey! 🎂✨</span>
         </div>
-        <button class="start-btn" onclick="startJourney()">✨ START ADVENTURE ✨</button>
+        <button class="start-btn" onclick="startJourney()">🎉 START MAGIC 🎉</button>
     </div>
 
-    <!-- Countdown -->
-    <div class="countdown" id="countdown">3</div>
-
-    <!-- Scenes -->
-    <!-- Scene 1: Bloom Tree -->
+    <!-- Scene 1: Blooming Tree (4 hanging photos like mangoes) -->
     <div class="scene tree-scene" id="scene1">
-        <div class="instruction">🌳 Click the tree to make it bloom!</div>
-        <div class="tree" onclick="bloomTree()">🌳</div>
-        <div class="hanging-photos" id="treePhotos">
-            <!-- ADD IMAGE 1 HERE: Replace src="1.jpg" -->
-            <img src="2.jpg" alt="Memory 1" class="photo-ornament">
-            <!-- ADD IMAGE 2 HERE: Replace src="2.jpg" -->
-            <img src="3.jpg" alt="Memory 2" class="photo-ornament">
+        <div class="instruction">🌳 Tap the tree to watch it bloom with memories!</div>
+        <div class="tree-container" onclick="bloomTree()">
+            <div class="tree">🌳</div>
+            <div class="hanging-photos" id="treePhotos">
+                <!-- **EDIT HERE: Replace src with your 4 tree photos** -->
+                <img src="1.jpg" alt="Memory 1" class="photo-mango">
+                <img src="2.jpg" alt="Memory 2" class="photo-mango">
+                <img src="3.jpg" alt="Memory 3" class="photo-mango">
+                <img src="4.jpg" alt="Memory 4" class="photo-mango">
+            </div>
         </div>
-        <h1 style="position: absolute; bottom: 20%; font-size: 3rem; color: #ffd700;">🎂Happy Birthday Salonee! 🎂</h1>
+        <h1 style="position: absolute; bottom: 15%; font-size: clamp(2rem, 8vw, 4rem); color: #ffd700; text-shadow: 0 0 30px rgba(255,215,0,0.8);">HAPPY BIRTHDAY! 🎉</h1>
     </div>
 
     <!-- Scene 2: Moving Bus -->
     <div class="scene bus-scene" id="scene2">
-        <div class="instruction">🚌 Watch the bus to Memories...</div>
-        <div class="bus" onclick="nextScene()">Memories👀</div>
+        <div class="instruction">🚌 Watch the bus take us to "Memories Lane"...</div>
+        <div class="bus">🚌 Memories</div>
     </div>
 
-    <!-- Scene 3-6: Photo Memories -->
-    <div class="scene photo-slide" id="scene3">
-        <div class="instruction">📸 Swipe to see more memories</div>
-        <!-- ADD IMAGE 3 HERE: Replace src="3.jpg" -->
-        <img src="4.jpg" alt="Memory 3" class="photo-frame">
-        <h2 style="color: #ffd700; margin: 20px 0;">Golu Molu</h2>
+    <!-- Scene 3: Photo + Message 1 -->
+    <div class="scene photo-text-scene" id="scene3">
+        <div class="instruction">💕 Swipe to continue →</div>
+        <!-- **EDIT HERE: Replace src="5.jpg"** -->
+        <img src="5.jpg" alt="Memory 5" class="side-photo left-photo">
+        <div class="message-content">
+            <h2 class="message-title">🌟 First Spark</h2>
+            <!-- **EDIT TEXT HERE** -->
+            <p class="message-text">✨ I'm grateful to have you in my life. Your smile lights up my world every single day.</p>
+        </div>
+        <img src="6.jpg" alt="Memory 6" class="side-photo right-photo">
     </div>
 
-    <div class="scene photo-slide" id="scene4">
-        <!-- ADD IMAGE 4 HERE: Replace src="4.jpg" -->
-        <img src="5.jpg" alt="Memory 4" class="photo-frame">
-        <h2 style="color: #ffd700; margin: 20px 0;">Forever Cherished</h2>
+    <!-- Scene 4: Photo + Message 2 -->
+    <div class="scene photo-text-scene" id="scene4">
+        <!-- **EDIT HERE: Replace src="7.jpg"** -->
+        <img src="7.jpg" alt="Memory 7" class="side-photo left-photo">
+        <div class="message-content">
+            <h2 class="message-title">🙏 Always There</h2>
+            <!-- **EDIT TEXT HERE** -->
+            <p class="message-text">💝 Thank you for always staying by my side through every storm and sunshine.</p>
+        </div>
+        <!-- **EDIT HERE: Replace src="8.jpg"** -->
+        <img src="8.jpg" alt="Memory 8" class="side-photo right-photo">
     </div>
 
-    <div class="scene photo-slide" id="scene5">
-        <!-- ADD IMAGE 5 HERE: Replace src="5.jpg" -->
-        <img src="6.jpg" alt="Memory 5" class="photo-frame">
-        <h2 style="color: #ffd700; margin: 20px 0;">Your Smile</h2>
-    </div>
-
-    <div class="scene photo-slide" id="scene6">
-        <!-- ADD IMAGE 6 HERE: Replace src="6.jpg" -->
-        <img src="7.jpg" alt="Memory 6" class="photo-frame">
-        <h2 style="color: #ffd700; margin: 20px 0;">Special Times</h2>
-    </div>
-
-    <!-- Scene 7: Messages -->
-    <div class="scene" id="scene7" style="background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);">
-        <div class="instruction">Sorry I Couldn't Do Much, This Is What I Could With My Bhonduness :*)</div>
-        <div class="message">🦫Thank You For Staying By My Side 🦫</div>
-        <div class="message" style="margin-top: 20px;">Nain Tere Tijori Meri :-)</div>
-	<div class="message" style="margin-top: 20px;">Enjoy Your Day!</div>
-        <!-- EDIT TEXT MESSAGES HERE -->
-    </div>
-
-    <!-- Scene 8: House -->
-    <div class="scene house-scene" id="scene8">
-        <div class="instruction">🏠 Our beautiful memories live here</div>
+    <!-- Scene 5: Beautiful House -->
+    <div class="scene house-scene" id="scene5">
+        <div class="instruction">🏠 Where our beautiful memories live forever...</div>
         <div class="house">🏠</div>
-        <!-- ADD IMAGE 7 HERE: Replace src="7.jpg" -->
-        <img src="8.jpg" alt="The Eyes I Always Talk About" class="photo-frame" style="position: absolute; bottom: 20%;">
-        <!-- ADD IMAGE 8 HERE: Replace src="8.jpg" -->
-        <img src="1.jpg" alt="Final Memory" class="photo-frame" style="position: absolute; bottom: 10%; right: 10%;">
-        <h1 style="position: absolute; top: 20%; font-size: 2.5rem; color: #ff1493;">Stay Blessed And Happy As Always!</h1>
+        <div style="position: absolute; top: 20%; left: 50%; transform: translateX(-50%); text-align: center; color: #ff1493; font-size: clamp(1.5rem, 5vw, 2.5rem); font-weight: bold;">
+            Forever Together <br> 🎂❤️
+        </div>
     </div>
 
     <script>
         let currentScene = 0;
-        const scenes = ['scene1','scene2','scene3','scene4','scene5','scene6','scene7','scene8'];
+        const scenes = ['scene1','scene2','scene3','scene4','scene5'];
         const music = document.getElementById('bgMusic');
 
+        // Start Journey
         function startJourney() {
             document.getElementById('welcomeModal').style.display = 'none';
-            music.play();
+            music.volume = 0.3;
+            music.play().catch(e => console.log('Autoplay blocked'));
             showScene(0);
             createConfetti();
         }
 
+        // Show Scene
         function showScene(index) {
-            scenes.forEach((scene, i) => {
-                document.getElementById(scene).classList.toggle('active', i === index);
+            document.querySelectorAll('.scene').forEach((scene, i) => {
+                scene.classList.toggle('active', i === index);
             });
             currentScene = index;
         }
 
+        // Next Scene
         function nextScene() {
             if (currentScene < scenes.length - 1) {
                 showScene(currentScene + 1);
+                createConfetti();
             }
         }
 
+        // Bloom Tree
         function bloomTree() {
             const tree = document.querySelector('.tree');
             const photos = document.getElementById('treePhotos');
@@ -392,41 +437,51 @@
             photos.classList.add('show');
             
             setTimeout(() => {
-                nextScene();
-            }, 3000);
+                nextScene(); // Go to bus
+            }, 3500);
         }
 
-        // Touch Swipe
-        let touchStartX = 0;
-        let touchEndX = 0;
+        // Auto Bus to Memories
+        setTimeout(() => {
+            if (currentScene === 1) {
+                setTimeout(nextScene, 5500); // Bus drives then next
+            }
+        }, 100);
 
-        document.addEventListener('touchstart', e => {
-            touchStartX = e.changedTouches[0].screenX;
-        });
-
+        // Touch Swipe Navigation
+        let touchStartX = 0, touchEndX = 0;
+        document.addEventListener('touchstart', e => touchStartX = e.changedTouches[0].screenX);
         document.addEventListener('touchend', e => {
             touchEndX = e.changedTouches[0].screenX;
-            if (touchStartX - touchEndX > 50) nextScene();
+            if (touchStartX - touchEndX > 50) nextScene(); // Swipe left
         });
 
-        // Confetti
+        // Keyboard Navigation
+        document.addEventListener('keydown', e => {
+            if (e.key === 'ArrowRight' || e.key === ' ') nextScene();
+        });
+
+        // Confetti Effect
         function createConfetti() {
-            for(let i = 0; i < 50; i++) {
-                const confetti = document.createElement('div');
-                confetti.className = 'confetti';
-                confetti.style.left = Math.random() * 100 + '%';
-                confetti.style.background = ['#ffd700', '#ff1493', '#ff69b4'][Math.floor(Math.random()*3)];
-                confetti.style.animationDelay = Math.random() * 3 + 's';
-                confetti.style.animationDuration = (Math.random() * 3 + 2) + 's';
-                document.body.appendChild(confetti);
-                setTimeout(() => confetti.remove(), 5000);
+            for(let i = 0; i < 60; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.style.left = Math.random() * 100 + '%';
+                    confetti.style.background = `hsl(${Math.random()*60 + 20}, 80%, 60%)`;
+                    confetti.style.animationDuration = (Math.random() * 3 + 3) + 's';
+                    document.body.appendChild(confetti);
+                    setTimeout(() => confetti.remove(), 5000);
+                }, i * 50);
             }
         }
 
-        // Auto-progress some scenes
-        setTimeout(() => {
-            if (currentScene === 1) nextScene();
-        }, 5000);
+        // Click anywhere to next (except tree scene)
+        document.addEventListener('click', e => {
+            if (currentScene > 0 && !e.target.closest('.tree-container')) {
+                nextScene();
+            }
+        });
     </script>
 </body>
 </html>
