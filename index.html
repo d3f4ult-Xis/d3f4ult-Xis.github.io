@@ -3,17 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Her Birthday Story</title>
+    <title>Her Birthday 🎂</title>
     <style>
-        :root {
-            --primary-color: #ff1493;
-            --secondary-color: #ff69b4;
-            --bg-dark: #1a1a2e;
-            --bg-light: #16213e;
-            --text-light: #eaeaea;
-            --accent: #ffd700;
-        }
-
         * {
             margin: 0;
             padding: 0;
@@ -21,568 +12,421 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-light) 100%);
-            color: var(--text-light);
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            height: 100vh;
             overflow-x: hidden;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
+            position: relative;
         }
 
-        /* Floating hearts animation */
-        @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0; }
-            10% { opacity: 1; }
-            90% { opacity: 1; }
-            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
-        }
-
-        .heart-float {
+        /* Welcome Modal */
+        .welcome-modal {
             position: fixed;
-            font-size: 2rem;
-            pointer-events: none;
-            animation: float 6s ease-in infinite;
-            z-index: 1;
-        }
-
-        /* Main carousel container */
-        .carousel-container {
-            width: 100%;
-            max-width: 500px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 20px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 20, 147, 0.2);
-            overflow: hidden;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-        }
-
-        /* Carousel slide */
-        .carousel-slide {
-            width: 100%;
-            padding: 60px 40px;
-            text-align: center;
-            min-height: 600px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            transform: translateX(100px) rotateY(20deg);
-            transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-            pointer-events: none;
-        }
-
-        .carousel-slide.active {
-            opacity: 1;
-            transform: translateX(0) rotateY(0deg);
-            pointer-events: auto;
-        }
-
-        .carousel-slide.prev {
-            transform: translateX(-100px) rotateY(-20deg);
-        }
-
-        /* Slide content */
-        .slide-number {
-            font-size: 0.9rem;
-            color: var(--accent);
-            margin-bottom: 15px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            opacity: 0.8;
-        }
-
-        .slide-emoji {
-            font-size: 4rem;
-            margin: 20px 0;
-            animation: bounce 2s ease-in-out infinite;
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
-        }
-
-        .slide-title {
-            font-size: 2rem;
-            color: var(--accent);
-            margin: 20px 0;
-            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .slide-text {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            color: var(--text-light);
-            margin: 20px 0;
-        }
-
-        .slide-date {
-            font-size: 0.95rem;
-            color: var(--secondary-color);
-            margin-top: 20px;
-            font-style: italic;
-        }
-
-        /* Photo slide */
-        .photo-gallery {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-            width: 100%;
-            margin: 20px 0;
-        }
-
-        .photo-item {
-            aspect-ratio: 1;
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2.5rem;
-            border: 2px solid rgba(255, 20, 147, 0.3);
-            transition: transform 0.3s ease;
-            overflow: hidden;
-        }
-
-        .photo-item img {
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
-            object-fit: cover;
-        }
-
-        .photo-item:hover {
-            transform: scale(1.05);
-        }
-
-        /* Navigation controls */
-        .carousel-controls {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 30px 40px;
-            background: rgba(0, 0, 0, 0.2);
-        }
-
-        .nav-button {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            color: white;
-            border: none;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            font-size: 1.5rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .nav-button:hover {
-            transform: scale(1.1);
-            box-shadow: 0 5px 20px rgba(255, 20, 147, 0.4);
-        }
-
-        .nav-button:active {
-            transform: scale(0.95);
-        }
-
-        .nav-button:disabled {
-            opacity: 0.3;
-            cursor: not-allowed;
-        }
-
-        /* Progress bar */
-        .progress-dots {
-            display: flex;
-            gap: 8px;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.3);
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .dot.active {
-            background: var(--accent);
-            width: 24px;
-            border-radius: 4px;
-            box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
-        }
-
-        /* Input section */
-        .input-section {
-            margin-top: 40px;
-            width: 100%;
-            max-width: 500px;
-        }
-
-        .input-section h3 {
-            color: var(--accent);
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        .input-group {
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
             display: flex;
             flex-direction: column;
-            gap: 15px;
-        }
-
-        input, textarea {
-            padding: 12px 15px;
-            border: 2px solid var(--secondary-color);
-            background: rgba(255, 255, 255, 0.05);
-            color: var(--text-light);
-            border-radius: 8px;
-            font-family: inherit;
-            font-size: 0.95rem;
-        }
-
-        input::placeholder, textarea::placeholder {
-            color: rgba(255, 255, 255, 0.5);
-        }
-
-        input:focus, textarea:focus {
-            outline: none;
-            border-color: var(--accent);
-            background: rgba(255, 255, 255, 0.1);
-            box-shadow: 0 0 15px rgba(255, 20, 147, 0.3);
-        }
-
-        textarea {
-            resize: vertical;
-            min-height: 80px;
-        }
-
-        .add-button {
-            padding: 12px 30px;
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            justify-content: center;
+            align-items: center;
+            text-align: center;
             color: white;
+        }
+
+        .welcome-text {
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            animation: glow 2s ease-in-out infinite alternate;
+            max-width: 90%;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 20px #ff1493; }
+            to { text-shadow: 0 0 30px #ffd700; }
+        }
+
+        .start-btn {
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            background: linear-gradient(45deg, #ff1493, #ffd700);
             border: none;
-            border-radius: 8px;
-            font-size: 1rem;
+            border-radius: 50px;
+            color: white;
             cursor: pointer;
             font-weight: bold;
             transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(255,20,147,0.4);
         }
 
-        .add-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(255, 20, 147, 0.4);
+        .start-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 15px 40px rgba(255,20,147,0.6);
+        }
+
+        /* Scene Container */
+        .scene {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1s ease;
+        }
+
+        .scene.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .instruction {
+            position: absolute;
+            top: 20px;
+            background: rgba(255,255,255,0.9);
+            padding: 15px 25px;
+            border-radius: 25px;
+            font-weight: bold;
+            color: #333;
+            font-size: 1rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            animation: bounceIn 0.5s ease;
+        }
+
+        @keyframes bounceIn {
+            0% { transform: scale(0.3); opacity: 0; }
+            50% { transform: scale(1.05); }
+            70% { transform: scale(0.9); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        /* Bloom Tree */
+        .tree-scene {
+            background: linear-gradient(to bottom, #87CEEB 0%, #98FB98 70%, #228B22 100%);
+        }
+
+        .tree {
+            font-size: 8rem;
+            cursor: pointer;
+            transition: all 0.5s ease;
+            animation: sway 3s ease-in-out infinite;
+        }
+
+        @keyframes sway {
+            0%, 100% { transform: rotate(-2deg); }
+            50% { transform: rotate(2deg); }
+        }
+🎂
+        .tree.blooming {
+            animation: bloom 2s ease-out forwards;
+        }
+
+        @keyframes bloom {
+            0% { transform: scale(1) rotate(-2deg); }
+            50% { transform: scale(1.3) rotate(0deg); }
+            100% { transform: scale(1.1) rotate(0deg); }
+        }
+
+        .hanging-photos {
+            position: absolute;
+            opacity: 0;
+            transform: translateY(-50px);
+            transition: all 1s ease 1s;
+        }
+
+        .hanging-photos.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .photo-ornament {
+            width: 120px;
+            height: 120px;
+            border-radius: 20px;
+            object-fit: cover;
+            border: 4px solid #ffd700;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            margin: 10px;
+        }
+
+        /* Bus Scene */
+        .bus-scene {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);
+        }
+
+        .bus {
+            font-size: 6rem;
+            animation: drive 4s ease-out forwards;
+        }
+
+        @keyframes drive {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100vw); }
+        }
+
+        /* Photo Slides */
+        .photo-slide {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            text-align: center;
+        }
+
+        .photo-frame {
+            width: 250px;
+            height: 250px;
+            border-radius: 20px;
+            object-fit: cover;
+            border: 8px solid #ffd700;
+            box-shadow: 0 20px 40px rgba(255,215,0,0.4);
+            margin: 20px 0;
+            animation: floatUp 2s ease-out;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(50px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+
+        /* Message Slides */
+        .message {
+            font-size: 1.5rem;
+            background: rgba(255,255,255,0.1);
+            padding: 30px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+            max-width: 400px;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            0% { opacity: 0; transform: translateY(30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        /* House Scene */
+        .house-scene {
+            background: linear-gradient(to bottom, #87CEEB 0%, #98FB98 60%, #DEB887 100%);
+        }
+
+        .house {
+            font-size: 10rem;
+            animation: glowHouse 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glowHouse {
+            from { filter: drop-shadow(0 0 20px #ffd700); }
+            to { filter: drop-shadow(0 0 40px #ffd700); }
+        }
+
+        /* Countdown */
+        .countdown {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 8rem;
+            font-weight: bold;
+            color: #ffd700;
+            text-shadow: 0 0 30px #ff1493;
+            z-index: 100;
+            pointer-events: none;
+            opacity: 0;
+        }
+
+        .countdown.show {
+            opacity: 1;
+            animation: countdownPulse 1s ease-in-out infinite;
+        }
+
+        @keyframes countdownPulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); }
+            50% { transform: translate(-50%, -50%) scale(1.2); }
+        }
+
+        /* Confetti */
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background: #ffd700;
+            pointer-events: none;
+            z-index: 50;
+            animation: confetti-fall 3s linear infinite;
+        }
+
+        @keyframes confetti-fall {
+            0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
         }
 
         /* Responsive */
-        @media (max-width: 600px) {
-            .carousel-slide {
-                padding: 40px 25px;
-                min-height: 500px;
-            }
-
-            .slide-title {
-                font-size: 1.5rem;
-            }
-
-            .slide-emoji {
-                font-size: 3rem;
-            }
-
-            .carousel-controls {
-                padding: 20px 25px;
-            }
-
-            .nav-button {
-                width: 45px;
-                height: 45px;
-                font-size: 1.2rem;
-            }
-
-            .photo-gallery {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 8px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            body {
-                padding: 10px;
-            }
-
-            .carousel-container {
-                max-width: 100%;
-                border-radius: 15px;
-            }
-
-            .carousel-slide {
-                padding: 30px 20px;
-                min-height: 450px;
-            }
-
-            .slide-title {
-                font-size: 1.3rem;
-            }
-
-            .slide-emoji {
-                font-size: 2.5rem;
-            }
-
-            .slide-text {
-                font-size: 1rem;
-            }
-
-            .carousel-controls {
-                padding: 15px 20px;
-            }
-
-            .nav-button {
-                width: 40px;
-                height: 40px;
-                font-size: 1rem;
-            }
+        @media (max-width: 768px) {
+            .welcome-text { font-size: 1.4rem; }
+            .tree { font-size: 6rem; }
+            .photo-ornament { width: 100px; height: 100px; }
+            .photo-frame { width: 200px; height: 200px; }
+            .message { font-size: 1.2rem; padding: 20px; }
+            .house { font-size: 8rem; }
         }
     </style>
 </head>
 <body>
-    <div style="width: 100%; display: flex; flex-direction: column; align-items: center;">
-        <!-- Carousel -->
-        <div class="carousel-container">
-            <!-- Slides -->
-            <div class="carousel-slide active">
-                <div class="slide-number">Story 1 / 6</div>
-                <div class="slide-emoji">🎂</div>
-                <h2 class="slide-title">Happy Birthday Salonee! 🎂🥳</h2>
-                <p class="slide-text">Cheers To 18 🥂</p>
-                <p class="slide-date">Swipe From Right To Left →</p>
-            </div>
+    <!-- Music -->
+    <audio id="bgMusic" loop>
+        <source src="Music.mp3" type="audio/mpeg">
+    </audio>
 
-            <div class="carousel-slide">
-                <div class="slide-number">Story 2 / 6</div>
-                <img src="1.jpg" alt="Our First Memory" style="width: 200px; height: 200px; border-radius: 10px; margin-bottom: 20px;">
-                <div class="slide-emoji">✨</div>
-                <h2 class="slide-title">Our First Memory</h2>
-                <p class="slide-text">Remember when we first met? That moment changed everything. You brought so much joy and peace.</p>
-                <p class="slide-date">Yaadein</p>
-            </div>
-
-            <div class="carousel-slide">
-                <div class="slide-number">Story 3 / 6</div>
-                <div class="slide-emoji">📸</div>
-                <h2 class="slide-title">Memories</h2>
-                <div class="photo-gallery">
-                    <div class="photo-item"><img src="2.jpg" alt="Memory 1"></div>
-                    <div class="photo-item"><img src="3.jpg" alt="Memory 2"></div>
-                    <div class="photo-item"><img src="4.jpg" alt="Memory 3"></div>
-                    <div class="photo-item"><img src="5.jpg" alt="Memory 4"></div>
-                </div>
-                <p class="slide-text">Your favorite moments & celebrations</p>
-            </div>
-
-            <div class="carousel-slide">
-                <div class="slide-number">Story 4 / 6</div>
-                <img src="6.jpg" alt="Your Smile" style="width: 200px; height: 200px; border-radius: 10px; margin-bottom: 20px;">
-                <div class="slide-emoji">😊</div>
-                <h2 class="slide-title">Your Beautiful Smile</h2>
-                <p class="slide-text">One of my favorite things about you is your smile. It lights up my sad moments and makes my each day brighter.</p>
-                <p class="slide-date">You make me happy</p>
-            </div>
-
-            <div class="carousel-slide">
-                <div class="slide-number">Story 5 / 6</div>
-                <img src="7.jpg" alt="Adventures Ahead" style="width: 200px; height: 200px; border-radius: 10px; margin-bottom: 20px;">
-                <div class="slide-emoji">🌈</div>
-                <h2 class="slide-title">Adventures Ahead</h2>
-                <p class="slide-text">For The Girl Who Made Me Laugh, Smile And Happy</p>
-                <p class="slide-date">Excited for what's next?</p>
-            </div>
-
-            <div class="carousel-slide">
-                <div class="slide-number">Story 6 / 6</div>
-                <img src="8.jpg" alt="Birthday Wish" style="width: 200px; height: 200px; border-radius: 10px; margin-bottom: 20px;">
-                <div class="slide-emoji">🎁</div>
-                <h2 class="slide-title">Happy Birthday to You!</h2>
-                <p class="slide-text">Wishing you a day filled with love, laughter, and joy. You deserve all the happiness. Happy Birthday! 🎉</p>
-                <p class="slide-date">With all my Bhonduness ❤️</p>
-            </div>
-
-            <!-- Navigation -->
-            <div class="carousel-controls">
-                <button class="nav-button" id="prevBtn" onclick="previousSlide()">❮</button>
-                <div class="progress-dots" id="dotsContainer"></div>
-                <button class="nav-button" id="nextBtn" onclick="nextSlide()">❯</button>
-            </div>
+    <!-- Welcome Modal -->
+    <div class="welcome-modal" id="welcomeModal">
+        <div class="welcome-text">
+           Happy Birthday Salonee! 🪐 A magical journey awaits you... <br>
+            <span style="font-size: 2rem; color: #ffd700;">Click to begin the birthday adventure! 🍃</span>
         </div>
+        <button class="start-btn" onclick="startJourney()">✨ START ADVENTURE ✨</button>
+    </div>
 
-        <!-- Add Memory Section -->
-        <div class="input-section">
-            <h3>💌 Add Your Memory</h3>
-            <div class="input-group">
-                <input type="text" id="memoryTitle" placeholder="Memory Title (e.g., Our First Date)" maxlength="50">
-                <textarea id="memoryText" placeholder="Write your special memory here..."></textarea>
-                <button class="add-button" onclick="addCustomSlide()">Add Memory to Story</button>
-            </div>
+    <!-- Countdown -->
+    <div class="countdown" id="countdown">3</div>
+
+    <!-- Scenes -->
+    <!-- Scene 1: Bloom Tree -->
+    <div class="scene tree-scene" id="scene1">
+        <div class="instruction">🌳 Click the tree to make it bloom!</div>
+        <div class="tree" onclick="bloomTree()">🌳</div>
+        <div class="hanging-photos" id="treePhotos">
+            <!-- ADD IMAGE 1 HERE: Replace src="1.jpg" -->
+            <img src="2.jpg" alt="Memory 1" class="photo-ornament">
+            <!-- ADD IMAGE 2 HERE: Replace src="2.jpg" -->
+            <img src="3.jpg" alt="Memory 2" class="photo-ornament">
         </div>
+        <h1 style="position: absolute; bottom: 20%; font-size: 3rem; color: #ffd700;">🎂Happy Birthday Salonee! 🎂</h1>
+    </div>
+
+    <!-- Scene 2: Moving Bus -->
+    <div class="scene bus-scene" id="scene2">
+        <div class="instruction">🚌 Watch the bus to Memories...</div>
+        <div class="bus" onclick="nextScene()">Memories👀</div>
+    </div>
+
+    <!-- Scene 3-6: Photo Memories -->
+    <div class="scene photo-slide" id="scene3">
+        <div class="instruction">📸 Swipe to see more memories</div>
+        <!-- ADD IMAGE 3 HERE: Replace src="3.jpg" -->
+        <img src="4.jpg" alt="Memory 3" class="photo-frame">
+        <h2 style="color: #ffd700; margin: 20px 0;">Golu Molu</h2>
+    </div>
+
+    <div class="scene photo-slide" id="scene4">
+        <!-- ADD IMAGE 4 HERE: Replace src="4.jpg" -->
+        <img src="5.jpg" alt="Memory 4" class="photo-frame">
+        <h2 style="color: #ffd700; margin: 20px 0;">Forever Cherished</h2>
+    </div>
+
+    <div class="scene photo-slide" id="scene5">
+        <!-- ADD IMAGE 5 HERE: Replace src="5.jpg" -->
+        <img src="6.jpg" alt="Memory 5" class="photo-frame">
+        <h2 style="color: #ffd700; margin: 20px 0;">Your Smile</h2>
+    </div>
+
+    <div class="scene photo-slide" id="scene6">
+        <!-- ADD IMAGE 6 HERE: Replace src="6.jpg" -->
+        <img src="7.jpg" alt="Memory 6" class="photo-frame">
+        <h2 style="color: #ffd700; margin: 20px 0;">Special Times</h2>
+    </div>
+
+    <!-- Scene 7: Messages -->
+    <div class="scene" id="scene7" style="background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);">
+        <div class="instruction">Sorry I Couldn't Do Much, This Is What I Could With My Bhonduness :*)</div>
+        <div class="message">🦫Thank You For Staying By My Side 🦫</div>
+        <div class="message" style="margin-top: 20px;">Nain Tere Tijori Meri :-)</div>
+	<div class="message" style="margin-top: 20px;">Enjoy Your Day!</div>
+        <!-- EDIT TEXT MESSAGES HERE -->
+    </div>
+
+    <!-- Scene 8: House -->
+    <div class="scene house-scene" id="scene8">
+        <div class="instruction">🏠 Our beautiful memories live here</div>
+        <div class="house">🏠</div>
+        <!-- ADD IMAGE 7 HERE: Replace src="7.jpg" -->
+        <img src="8.jpg" alt="The Eyes I Always Talk About" class="photo-frame" style="position: absolute; bottom: 20%;">
+        <!-- ADD IMAGE 8 HERE: Replace src="8.jpg" -->
+        <img src="1.jpg" alt="Final Memory" class="photo-frame" style="position: absolute; bottom: 10%; right: 10%;">
+        <h1 style="position: absolute; top: 20%; font-size: 2.5rem; color: #ff1493;">Stay Blessed And Happy As Always!</h1>
     </div>
 
     <script>
-        let currentSlide = 0;
-        let slides = document.querySelectorAll('.carousel-slide');
-        let totalSlides = slides.length;
+        let currentScene = 0;
+        const scenes = ['scene1','scene2','scene3','scene4','scene5','scene6','scene7','scene8'];
+        const music = document.getElementById('bgMusic');
 
-        // Create navigation dots
-        function createDots() {
-            const dotsContainer = document.getElementById('dotsContainer');
-            for (let i = 0; i < totalSlides; i++) {
-                const dot = document.createElement('div');
-                dot.className = 'dot' + (i === 0 ? ' active' : '');
-                dot.onclick = () => goToSlide(i);
-                dotsContainer.appendChild(dot);
-            }
+        function startJourney() {
+            document.getElementById('welcomeModal').style.display = 'none';
+            music.play();
+            showScene(0);
+            createConfetti();
         }
 
-        // Show slide
-        function showSlide(n) {
-            slides.forEach((slide, index) => {
-                slide.classList.remove('active', 'prev');
-                if (index === n) {
-                    slide.classList.add('active');
-                } else if (index < n) {
-                    slide.classList.add('prev');
-                }
+        function showScene(index) {
+            scenes.forEach((scene, i) => {
+                document.getElementById(scene).classList.toggle('active', i === index);
             });
-
-            // Update dots
-            document.querySelectorAll('.dot').forEach((dot, index) => {
-                dot.classList.toggle('active', index === n);
-            });
-
-            // Update button states
-            document.getElementById('prevBtn').disabled = n === 0;
-            document.getElementById('nextBtn').disabled = n === totalSlides - 1;
+            currentScene = index;
         }
 
-        // Next slide
-        function nextSlide() {
-            if (currentSlide < totalSlides - 1) {
-                currentSlide++;
-                showSlide(currentSlide);
+        function nextScene() {
+            if (currentScene < scenes.length - 1) {
+                showScene(currentScene + 1);
             }
         }
 
-        // Previous slide
-        function previousSlide() {
-            if (currentSlide > 0) {
-                currentSlide--;
-                showSlide(currentSlide);
-            }
+        function bloomTree() {
+            const tree = document.querySelector('.tree');
+            const photos = document.getElementById('treePhotos');
+            
+            tree.classList.add('blooming');
+            photos.classList.add('show');
+            
+            setTimeout(() => {
+                nextScene();
+            }, 3000);
         }
 
-        // Go to specific slide
-        function goToSlide(n) {
-            currentSlide = n;
-            showSlide(currentSlide);
-        }
-
-        // Add custom memory slide
-        function addCustomSlide() {
-            const title = document.getElementById('memoryTitle').value;
-            const text = document.getElementById('memoryText').value;
-
-            if (!title || !text) {
-                alert('Please fill in both fields!');
-                return;
-            }
-
-            // Create new slide
-            const newSlide = document.createElement('div');
-            newSlide.className = 'carousel-slide';
-            newSlide.innerHTML = `
-                <div class="slide-number">Custom / Memory</div>
-                <div class="slide-emoji">💝</div>
-                <h2 class="slide-title">${title}</h2>
-                <p class="slide-text">${text}</p>
-                <p class="slide-date">✨ Added with Love</p>
-            `;
-
-            // Insert before carousel controls
-            document.querySelector('.carousel-container').insertBefore(
-                newSlide,
-                document.querySelector('.carousel-controls')
-            );
-
-            // Update slides NodeList
-            const slidesNodeList = document.querySelectorAll('.carousel-slide');
-            const newTotalSlides = slidesNodeList.length;
-
-            // Add new dot
-            const newDot = document.createElement('div');
-            newDot.className = 'dot';
-            newDot.onclick = () => goToSlide(newTotalSlides - 1);
-            document.getElementById('dotsContainer').appendChild(newDot);
-
-            // Clear inputs
-            document.getElementById('memoryTitle').value = '';
-            document.getElementById('memoryText').value = '';
-
-            // Navigate to new slide
-            currentSlide = newTotalSlides - 1;
-            showSlide(currentSlide);
-        }
-
-        // Keyboard navigation
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowLeft') previousSlide();
-            if (e.key === 'ArrowRight') nextSlide();
-        });
-
-        // Touch/swipe support
+        // Touch Swipe
         let touchStartX = 0;
         let touchEndX = 0;
 
-        document.querySelector('.carousel-container').addEventListener('touchstart', (e) => {
+        document.addEventListener('touchstart', e => {
             touchStartX = e.changedTouches[0].screenX;
         });
 
-        document.querySelector('.carousel-container').addEventListener('touchend', (e) => {
+        document.addEventListener('touchend', e => {
             touchEndX = e.changedTouches[0].screenX;
-            handleSwipe();
+            if (touchStartX - touchEndX > 50) nextScene();
         });
 
-        function handleSwipe() {
-            if (touchStartX - touchEndX > 50) nextSlide();
-            if (touchEndX - touchStartX > 50) previousSlide();
+        // Confetti
+        function createConfetti() {
+            for(let i = 0; i < 50; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.background = ['#ffd700', '#ff1493', '#ff69b4'][Math.floor(Math.random()*3)];
+                confetti.style.animationDelay = Math.random() * 3 + 's';
+                confetti.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                document.body.appendChild(confetti);
+                setTimeout(() => confetti.remove(), 5000);
+            }
         }
 
-        // Generate floating hearts
-        function createFloatingHeart() {
-            const heart = document.createElement('div');
-            heart.textContent = '❤️';
-            heart.className = 'heart-float';
-            heart.style.left = Math.random() * 100 + '%';
-            heart.style.animationDuration = (Math.random() * 3 + 4) + 's';
-            document.body.appendChild(heart);
-            setTimeout(() => heart.remove(), 7000);
-        }
-
-        setInterval(createFloatingHeart, 2000);
-
-        // Initialize
-        createDots();
-        showSlide(0);
+        // Auto-progress some scenes
+        setTimeout(() => {
+            if (currentScene === 1) nextScene();
+        }, 5000);
     </script>
 </body>
 </html>
